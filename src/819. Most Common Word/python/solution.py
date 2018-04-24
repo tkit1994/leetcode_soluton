@@ -8,10 +8,8 @@ class Solution:
         :type banned: List[str]
         :rtype: str
         """
-        wordDict = collections.Counter(
-            [word.strip("!?',;.") for word in paragraph.lower().split(' ')])
-        ans, best = None, 0
-        for word in wordDict:
-            if wordDict[word] > best and word not in banned:
-                ans, best = word, wordDict[word]
-        return ans
+        wordList = [
+            word.strip("!?',;.") for word in paragraph.lower().split(' ')
+        ]
+        wordCounter = collections.Counter(filter(lambda x: x not in banned, wordList))
+        return wordCounter.most_common()[0][0]
